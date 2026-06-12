@@ -21,3 +21,20 @@ const GameBoard = (() => {
         printBoard,
     };
 })();
+
+const GameController = (() => {
+    const board = GameBoard.getBoard();
+
+    const playRound = (rows, cols) => {
+        board[rows][cols] = "x";
+    };
+
+    return {
+        init() {
+            playRound(1, 2);
+            GameBoard.printBoard();
+        },
+    };
+})(GameBoard);
+
+GameController.init();
