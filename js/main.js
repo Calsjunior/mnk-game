@@ -23,16 +23,46 @@ const GameBoard = (() => {
 })();
 
 const GameController = (() => {
-  const board = GameBoard.getBoard();
+  const board = GameBoard;
+
+  const players = [
+    {
+      name: "Player 1",
+      token: "x",
+    },
+    {
+      name: "Player 2",
+      token: "o",
+    },
+  ];
+
+  let activePlayer = players[0];
+  const switchPlayerTurn = () => {
+    activePlayer = activePlayer === players[0] ? players[1] : players[0];
+  };
+
+  const getActivePlayer = () => activePlayer;
+
+  const printNewRound = () => {
+    board.printBoard();
+    console.log(`${getActivePlayer().name}'s turn.`);
+  };
 
   const playRound = (rows, cols) => {
-    board[rows][cols] = "x";
+    console.log(
+      `${getActivePlayer().name}'s token is placed into rows ${rows} and cols ${cols}.`,
+    );
+    board.getBoard()[rows][cols] = getActivePlayer().token;
+
+    switchPlayerTurn();
+    printNewRound();
   };
 
   return {
     init() {
       playRound(1, 2);
-      GameBoard.printBoard();
+      playRound(0, 2);
+      playRound(0, 0);
     },
   };
 })(GameBoard);
