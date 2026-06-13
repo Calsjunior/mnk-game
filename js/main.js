@@ -48,12 +48,67 @@ const GameController = (() => {
     console.log(`${getActivePlayer().name}'s turn.`);
   };
 
+  const checkWinner = (rows, cols, winLength, token) => {
+    const directions = [
+      [0, 1], // Horizontal
+      [1, 0], // Vertical
+      [1, 1], // Diagonal
+      [1, -1], // Anti-Diagonal
+    ];
+
+    for (const [directionRow, directionCol] of directions) {
+      let counter = 1;
+
+      const currentBoard = board.getBoard();
+
+      let moveRows = rows + directionRow;
+      let moveCols = cols + directionCol;
+      while (
+        moveRows >= 0 &&
+        moveRows < currentBoard[0].length &&
+        moveCols >= 0 &&
+        moveCols < currentBoard[0].length &&
+        board.getBoard()[moveRows][moveCols] === token
+      ) {
+        counter++;
+        moveRows += directionRow;
+        moveCols += directionCol;
+      }
+
+      moveRows = rows - directionRow;
+      moveCols = cols - directionCol;
+      while (
+        moveRows >= 0 &&
+        moveRows < currentBoard[0].length &&
+        moveCols >= 0 &&
+        moveCols < currentBoard[0].length &&
+        board.getBoard()[moveRows][moveCols] === token
+      ) {
+        counter++;
+        moveRows -= directionRow;
+        moveCols -= directionCol;
+      }
+
+      if (counter >= winLength) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
   const playRound = (rows, cols) => {
     console.log(
-      `${getActivePlayer().name}'s token is placed into rows ${rows} and cols ${cols}.`,
+      `${getActivePlayer().name}'s token is placed into row ${rows} and col ${cols}.`,
     );
 
     board.placeToken(rows, cols, getActivePlayer().token);
+
+    const isWinner = checkWinner(rows, cols, 3, getActivePlayer().token);
+    if (isWinner) {
+      console.log(`${getActivePlayer().name} is the winner.`);
+      return;
+    }
 
     switchPlayerTurn();
     printNewRound();
@@ -61,9 +116,11 @@ const GameController = (() => {
 
   return {
     init() {
-      playRound(1, 2);
-      playRound(0, 2);
+      playRound(2, 0);
       playRound(0, 0);
+      playRound(2, 1);
+      playRound(0, 1);
+      playRound(2, 2);
     },
   };
 })(GameBoard);
