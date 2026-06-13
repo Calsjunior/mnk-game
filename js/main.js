@@ -7,12 +7,17 @@ const GameBoard = (() => {
 
   const getBoard = () => board;
 
+  const placeToken = (rows, cols, token) => {
+    board[rows][cols] = token;
+  };
+
   const printBoard = () => {
     console.table(board);
   };
 
   return {
     getBoard,
+    placeToken,
     printBoard,
   };
 })();
@@ -47,7 +52,8 @@ const GameController = (() => {
     console.log(
       `${getActivePlayer().name}'s token is placed into rows ${rows} and cols ${cols}.`,
     );
-    board.getBoard()[rows][cols] = getActivePlayer().token;
+
+    board.placeToken(rows, cols, getActivePlayer().token);
 
     switchPlayerTurn();
     printNewRound();
