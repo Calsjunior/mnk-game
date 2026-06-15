@@ -123,21 +123,37 @@ const GameController = (() => {
 
 const ScreenController = (() => {
   const game = GameController;
-  const board = game.getBoard();
 
   const playerTurnDiv = document.querySelector(".mnk__turn");
   const boardDiv = document.querySelector(".mnk__board");
 
-  const generateBoard = () => {
+  const clearBoard = () => {
+    boardDiv.textContent = "";
+  };
+
+  const updateTurnDisplay = () => {
+    playerTurnDiv.textContent = `${game.getActivePlayer().name}'s turn`;
+  };
+
+  const createCellElement = (cellValue, rowIndex, colIndex) => {
+    const cellButton = document.createElement("button");
+    cellButton.classList.add("mnk__col");
+    cellButton.dataset.row = rowIndex;
+    cellButton.dataset.col = colIndex;
+    cellButton.textContent = cellValue === 0 ? "-" : cellValue;
+
+    return cellButton;
+  };
+
+  const renderBoard = () => {
+    clearBoard();
+    updateTurnDisplay();
+
+    const board = game.getBoard();
     board.forEach((row, rowIndex) => {
       row.forEach((cell, colIndex) => {
-        const cellButton = document.createElement("button");
-        cellButton.classList.add("mnk__col");
-        cellButton.dataset.row = rowIndex;
-        cellButton.dataset.col = colIndex;
-        cellButton.textContent = cell === 0 ? "-" : cell;
-
-        boardDiv.appendChild(cellButton);
+        const newCell = createCellElement(cell, rowIndex, colIndex);
+        boardDiv.appendChild(newCell);
       });
     });
   };
@@ -148,6 +164,7 @@ const ScreenController = (() => {
     if (!selectedRow || !selectedCol) return;
 
     game.playRound(parseInt(selectedRow, 10), parseInt(selectedCol, 10));
+    renderBoard();
   };
 
   const startEventHandler = () => {
@@ -156,8 +173,8 @@ const ScreenController = (() => {
 
   return {
     init() {
-      generateBoard();
       startEventHandler();
+      renderBoard();
     },
   };
 })(GameController);
