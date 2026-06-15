@@ -7,8 +7,8 @@ const GameBoard = (() => {
 
   const getBoard = () => board;
 
-  const placeToken = (rows, cols, token) => {
-    board[rows][cols] = token;
+  const placeToken = (row, col, token) => {
+    board[row][col] = token;
   };
 
   const printBoard = () => {
