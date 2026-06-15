@@ -115,14 +115,51 @@ const GameController = (() => {
   };
 
   return {
-    init() {
-      playRound(2, 0);
-      playRound(0, 0);
-      playRound(2, 1);
-      playRound(0, 1);
-      playRound(2, 2);
-    },
+    getActivePlayer,
+    playRound,
+    getBoard: board.getBoard,
   };
 })(GameBoard);
 
-GameController.init();
+const ScreenController = (() => {
+  const game = GameController;
+  const board = game.getBoard();
+
+  const playerTurnDiv = document.querySelector(".mnk__turn");
+  const boardDiv = document.querySelector(".mnk__board");
+
+  const generateBoard = () => {
+    board.forEach((row, rowIndex) => {
+      row.forEach((cell, colIndex) => {
+        const cellButton = document.createElement("button");
+        cellButton.classList.add("mnk__col");
+        cellButton.dataset.row = rowIndex;
+        cellButton.dataset.col = colIndex;
+        cellButton.textContent = cell === 0 ? "-" : cell;
+
+        boardDiv.appendChild(cellButton);
+      });
+    });
+  };
+
+  const clickHandlerBoard = (event) => {
+    const selectedRow = event.target.dataset.row;
+    const selectedCol = event.target.dataset.col;
+    if (!selectedRow || !selectedCol) return;
+
+    game.playRound(parseInt(selectedRow, 10), parseInt(selectedCol, 10));
+  };
+
+  const startEventHandler = () => {
+    boardDiv.addEventListener("click", clickHandlerBoard);
+  };
+
+  return {
+    init() {
+      generateBoard();
+      startEventHandler();
+    },
+  };
+})(GameController);
+
+ScreenController.init();
