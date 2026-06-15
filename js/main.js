@@ -97,14 +97,19 @@ const GameController = (() => {
     return false;
   };
 
-  const playRound = (rows, cols) => {
+  const playRound = (row, col) => {
+    if (board.getBoard()[row][col] !== 0) {
+      console.log("That spot is taken");
+      return;
+    }
+
     console.log(
-      `${getActivePlayer().name}'s token is placed into row ${rows} and col ${cols}.`,
+      `${getActivePlayer().name}'s token is placed into row ${row} and col ${col}.`,
     );
 
-    board.placeToken(rows, cols, getActivePlayer().token);
+    board.placeToken(row, col, getActivePlayer().token);
 
-    const isWinner = checkWinner(rows, cols, 3, getActivePlayer().token);
+    const isWinner = checkWinner(row, col, 3, getActivePlayer().token);
     if (isWinner) {
       console.log(`${getActivePlayer().name} is the winner.`);
       return;
