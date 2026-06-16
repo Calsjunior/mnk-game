@@ -27,6 +27,7 @@
           default = pkgs.mkShellNoCC {
             packages = with pkgs; [
               nodejs_latest
+              vscode-langservers-extracted
               live-server
             ];
           };
