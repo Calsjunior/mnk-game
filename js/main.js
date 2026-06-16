@@ -96,13 +96,12 @@ const GameController = ((board) => {
   };
 
   return {
+    getNextPlayer,
     playRound,
   };
 })(GameBoard);
 
 const ScreenController = (() => {
-  const game = GameController;
-
   const playerTurnDiv = document.querySelector(".mnk__turn");
   const boardDiv = document.querySelector(".mnk__board");
 
@@ -110,52 +109,27 @@ const ScreenController = (() => {
     boardDiv.textContent = "";
   };
 
-  const updateTurnDisplay = () => {
-    playerTurnDiv.textContent = `${game.getActivePlayer().name}'s turn`;
-  };
-
-  const createCellElement = (cellValue, rowIndex, colIndex) => {
-    const cellButton = document.createElement("button");
-    cellButton.classList.add("mnk__col");
-    cellButton.dataset.row = rowIndex;
-    cellButton.dataset.col = colIndex;
-    cellButton.textContent = cellValue === 0 ? "-" : cellValue;
-
-    return cellButton;
-  };
-
-  const renderBoard = () => {
+  const render = ({ board, activePlayer, isGameOver }) => {
     clearBoard();
-    updateTurnDisplay();
 
-    const board = game.getBoard();
+    if (isGameOver) {
+      playerTurnDiv.textContent = `${activePlayer.name} wins!`;
+    } else {
+      playerTurnDiv.textContent = `${activePlayer.name}'s turn`;
+    }
+
     board.forEach((row, rowIndex) => {
       row.forEach((cell, colIndex) => {
-        const newCell = createCellElement(cell, rowIndex, colIndex);
-        boardDiv.appendChild(newCell);
+        const cellBtn = document.createElement("button");
+        cellBtn.classList.add("mnk__col");
+        cellBtn.dataset.row = rowIndex;
+        cellBtn.dataset.col = colIndex;
+        cellBtn.textContent = cell === 0 ? "-" : cell;
+
+        boardDiv.appendChild(cellBtn);
       });
     });
   };
 
-  const clickHandlerBoard = (event) => {
-    const selectedRow = event.target.dataset.row;
-    const selectedCol = event.target.dataset.col;
-    if (!selectedRow || !selectedCol) return;
-
-    game.playRound(parseInt(selectedRow, 10), parseInt(selectedCol, 10));
-    renderBoard();
-  };
-
-  const startEventHandler = () => {
-    boardDiv.addEventListener("click", clickHandlerBoard);
-  };
-
-  return {
-    init() {
-      startEventHandler();
-      renderBoard();
-    },
-  };
-})(GameController);
-
-ScreenController.init();
+  return { render };
+})();
