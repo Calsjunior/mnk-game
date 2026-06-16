@@ -11,14 +11,9 @@ const GameBoard = (() => {
     board[row][col] = token;
   };
 
-  const printBoard = () => {
-    console.table(board);
-  };
-
   return {
     getBoard,
     placeToken,
-    printBoard,
   };
 })();
 
@@ -42,11 +37,6 @@ const GameController = (() => {
   };
 
   const getActivePlayer = () => activePlayer;
-
-  const printNewRound = () => {
-    board.printBoard();
-    console.log(`${getActivePlayer().name}'s turn.`);
-  };
 
   const checkWinner = (rows, cols, winLength, token) => {
     const directions = [
@@ -116,7 +106,6 @@ const GameController = (() => {
     }
 
     switchPlayerTurn();
-    printNewRound();
   };
 
   return {
