@@ -5,15 +5,31 @@ const GameBoard = (() => {
     .fill()
     .map(() => Array(cols).fill(0));
 
-  const getBoard = () => board;
+  const createBoard = (rows, cols) => {
+    return Array(rows)
+      .fill()
+      .map(() => Arrays(cols).fill(0));
+  };
 
-  const placeToken = (row, col, token) => {
-    board[row][col] = token;
+  const placeToken = (currentBoard, row, col, token) => {
+    if (currentBoard[row][col] !== 0) {
+      return currentBoard;
+    }
+
+    const newBoard = currentBoard.map((arr) => [...arr]);
+    newBoard[row][col] = token;
+
+    return newBoard;
+  };
+
+  const getNextPlayer = (currentPlayer, players) => {
+    return currentPlayer === players[0] ? players[1] : players[0];
   };
 
   return {
-    getBoard,
+    createBoard,
     placeToken,
+    getNextPlayer,
   };
 })();
 
