@@ -131,7 +131,18 @@ const ScreenController = (() => {
     });
   };
 
-  return { render };
+  const attachBoardListener = (handler) => {
+    boardDiv.addEventListener("click", (event) => {
+      const selectedRow = event.target.dataset.row;
+      const selectedCol = event.target.dataset.col;
+
+      if (!selectedRow || !selectedCol) return;
+
+      handler(selectedRow, selectedCol);
+    });
+  };
+
+  return { render, attachBoardListener };
 })();
 
 const App = ((board, controller, ui) => {
@@ -172,6 +183,7 @@ const App = ((board, controller, ui) => {
 
   return {
     init() {
+      ui.attachBoardListener(clickHandleCell);
       ui.render(state);
     },
   };
