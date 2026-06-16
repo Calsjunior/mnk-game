@@ -1,7 +1,7 @@
 const mnk = {
   rows: 3,
   cols: 3,
-  winLen: 3,
+  winLength: 3,
 };
 
 const players = [
@@ -13,7 +13,7 @@ const GameBoard = (() => {
   const createBoard = (rows, cols) => {
     return Array(rows)
       .fill()
-      .map(() => Arrays(cols).fill(0));
+      .map(() => Array(cols).fill(0));
   };
 
   const placeToken = (currentBoard, row, col, token) => {
@@ -38,7 +38,7 @@ const GameController = ((board) => {
     return currentPlayer === players[0] ? players[1] : players[0];
   };
 
-  const checkWinner = (rows, cols, winLength, token) => {
+  const checkWinner = (board, targetRow, targetCol, winLength, token) => {
     const directions = [
       [0, 1], // Horizontal
       [1, 0], // Vertical
@@ -49,30 +49,28 @@ const GameController = ((board) => {
     for (const [directionRow, directionCol] of directions) {
       let counter = 1;
 
-      const currentBoard = board.getBoard();
-
-      let moveRows = rows + directionRow;
-      let moveCols = cols + directionCol;
+      let moveRows = targetRow + directionRow;
+      let moveCols = targetCol + directionCol;
       while (
         moveRows >= 0 &&
-        moveRows < currentBoard.length &&
+        moveRows < board.length &&
         moveCols >= 0 &&
-        moveCols < currentBoard[0].length &&
-        board.getBoard()[moveRows][moveCols] === token
+        moveCols < board[0].length &&
+        board[moveRows][moveCols] === token
       ) {
         counter++;
         moveRows += directionRow;
         moveCols += directionCol;
       }
 
-      moveRows = rows - directionRow;
-      moveCols = cols - directionCol;
+      moveRows = targetRow - directionRow;
+      moveCols = targetCol - directionCol;
       while (
         moveRows >= 0 &&
-        moveRows < currentBoard.length &&
+        moveRows < board.length &&
         moveCols >= 0 &&
-        moveCols < currentBoard[0].length &&
-        board.getBoard()[moveRows][moveCols] === token
+        moveCols < board[0].length &&
+        board[moveRows][moveCols] === token
       ) {
         counter++;
         moveRows -= directionRow;
@@ -87,31 +85,18 @@ const GameController = ((board) => {
     return false;
   };
 
-  const playRound = (row, col) => {
-    if (board.getBoard()[row][col] !== 0) {
-      console.log("That spot is taken");
-      return;
-    }
+  const playRound = (currentBoard, row, col, winLength, token) => {
+    const newBoard = board.placeToken(currentBoard, row, col, token);
+    const isWinner = checkWinner(newBoard, row, col, winLength, token);
 
-    console.log(
-      `${getActivePlayer().name}'s token is placed into row ${row} and col ${col}.`,
-    );
-
-    board.placeToken(row, col, getActivePlayer().token);
-
-    const isWinner = checkWinner(row, col, 3, getActivePlayer().token);
-    if (isWinner) {
-      console.log(`${getActivePlayer().name} is the winner.`);
-      return;
-    }
-
-    switchPlayerTurn();
+    return {
+      newBoard,
+      isWinner,
+    };
   };
 
   return {
-    getActivePlayer,
     playRound,
-    getBoard: board.getBoard,
   };
 })(GameBoard);
 
