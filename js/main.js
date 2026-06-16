@@ -1,10 +1,4 @@
 const GameBoard = (() => {
-  const rows = 3;
-  const cols = 3;
-  const board = Array(rows)
-    .fill()
-    .map(() => Array(cols).fill(0));
-
   const createBoard = (rows, cols) => {
     return Array(rows)
       .fill()
@@ -22,20 +16,13 @@ const GameBoard = (() => {
     return newBoard;
   };
 
-  const getNextPlayer = (currentPlayer, players) => {
-    return currentPlayer === players[0] ? players[1] : players[0];
-  };
-
   return {
     createBoard,
     placeToken,
-    getNextPlayer,
   };
 })();
 
-const GameController = (() => {
-  const board = GameBoard;
-
+const GameController = ((board) => {
   const players = [
     {
       name: "Player 1",
@@ -50,6 +37,10 @@ const GameController = (() => {
   let activePlayer = players[0];
   const switchPlayerTurn = () => {
     activePlayer = activePlayer === players[0] ? players[1] : players[0];
+  };
+
+  const getNextPlayer = (currentPlayer, players) => {
+    return currentPlayer === players[0] ? players[1] : players[0];
   };
 
   const getActivePlayer = () => activePlayer;
