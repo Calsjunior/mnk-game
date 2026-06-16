@@ -1,3 +1,14 @@
+const mnk = {
+  rows: 3,
+  cols: 3,
+  winLen: 3,
+};
+
+const players = [
+  { name: "Player 1", token: "x" },
+  { name: "Player 2", token: "o" },
+];
+
 const GameBoard = (() => {
   const createBoard = (rows, cols) => {
     return Array(rows)
@@ -23,27 +34,9 @@ const GameBoard = (() => {
 })();
 
 const GameController = ((board) => {
-  const players = [
-    {
-      name: "Player 1",
-      token: "x",
-    },
-    {
-      name: "Player 2",
-      token: "o",
-    },
-  ];
-
-  let activePlayer = players[0];
-  const switchPlayerTurn = () => {
-    activePlayer = activePlayer === players[0] ? players[1] : players[0];
-  };
-
   const getNextPlayer = (currentPlayer, players) => {
     return currentPlayer === players[0] ? players[1] : players[0];
   };
-
-  const getActivePlayer = () => activePlayer;
 
   const checkWinner = (rows, cols, winLength, token) => {
     const directions = [
