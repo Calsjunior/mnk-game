@@ -85,12 +85,18 @@ const GameController = ((board) => {
     return false;
   };
 
+  const checkDraw = (board) => {
+    return board.every((row) => !row.includes(0));
+  };
+
   const playRound = (currentBoard, row, col, winLength, token) => {
     const newBoard = board.placeToken(currentBoard, row, col, token);
+    const isDraw = checkDraw(newBoard);
     const isWinner = checkWinner(newBoard, row, col, winLength, token);
 
     return {
       newBoard,
+      isDraw,
       isWinner,
     };
   };
@@ -115,13 +121,15 @@ const ScreenController = (() => {
     boardDiv.style.gap = "5px";
   };
 
-  const render = ({ board, activePlayer, isGameOver }) => {
+  const render = ({ board, activePlayer, isGameOver, isDraw }) => {
     clearBoard();
 
     addBoardStyle();
 
-    if (isGameOver) {
-      playerTurnDiv.textContent = `${activePlayer.name} wins!`;
+    if (isGameOver && isDraw) {
+      playerTurnDiv.textContent = "It's a draw!";
+    } else if (isGameOver) {
+      playerTurnDiv.textContent = `${activePlayer.name}'s win`;
     } else {
       playerTurnDiv.textContent = `${activePlayer.name}'s turn`;
     }
@@ -158,6 +166,7 @@ const App = ((board, controller, ui) => {
     board: board.createBoard(mnk.rows, mnk.cols),
     activePlayer: players[0],
     isGameOver: false,
+    isDraw: false,
   };
 
   const clickHandleCell = (rowString, colString) => {
@@ -179,6 +188,9 @@ const App = ((board, controller, ui) => {
 
     if (result.isWinner) {
       state.isGameOver = true;
+    } else if (result.isDraw) {
+      state.isGameOver = true;
+      state.isDraw = true;
     } else {
       state.activePlayer = controller.getNextPlayer(
         state.activePlayer,
