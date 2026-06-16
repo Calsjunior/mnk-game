@@ -65,7 +65,7 @@ const GameController = (() => {
       let moveCols = cols + directionCol;
       while (
         moveRows >= 0 &&
-        moveRows < currentBoard[0].length &&
+        moveRows < currentBoard.length &&
         moveCols >= 0 &&
         moveCols < currentBoard[0].length &&
         board.getBoard()[moveRows][moveCols] === token
@@ -79,7 +79,7 @@ const GameController = (() => {
       moveCols = cols - directionCol;
       while (
         moveRows >= 0 &&
-        moveRows < currentBoard[0].length &&
+        moveRows < currentBoard.length &&
         moveCols >= 0 &&
         moveCols < currentBoard[0].length &&
         board.getBoard()[moveRows][moveCols] === token
