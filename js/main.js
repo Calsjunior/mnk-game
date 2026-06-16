@@ -133,3 +133,48 @@ const ScreenController = (() => {
 
   return { render };
 })();
+
+const App = ((board, controller, ui) => {
+  const state = {
+    board: board.createBoard(mnk.rows, mnk.cols),
+    activePlayer: players[0],
+    isGameOver: false,
+  };
+
+  const clickHandleCell = (rowString, colString) => {
+    if (state.isGameOver) return;
+
+    const row = parseInt(rowString, 10);
+    const col = parseInt(colString, 10);
+
+    const result = controller.playRound(
+      state.board,
+      row,
+      col,
+      mnk.winLength,
+      state.activePlayer.token,
+    );
+
+    if (result.newBoard === state.board) return;
+    state.board = result.newBoard;
+
+    if (result.isWinner) {
+      state.isGameOver = true;
+    } else {
+      state.activePlayer = controller.getNextPlayer(
+        state.activePlayer,
+        players,
+      );
+    }
+
+    ui.render(state);
+  };
+
+  return {
+    init() {
+      ui.render(state);
+    },
+  };
+})(GameBoard, GameController, ScreenController);
+
+App.init();
