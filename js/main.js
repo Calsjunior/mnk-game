@@ -109,8 +109,16 @@ const ScreenController = (() => {
     boardDiv.textContent = "";
   };
 
+  const addBoardStyle = () => {
+    boardDiv.style.display = "grid";
+    boardDiv.style.gridTemplateColumns = `repeat(${mnk.cols}, 50px)`;
+    boardDiv.style.gap = "5px";
+  };
+
   const render = ({ board, activePlayer, isGameOver }) => {
     clearBoard();
+
+    addBoardStyle();
 
     if (isGameOver) {
       playerTurnDiv.textContent = `${activePlayer.name} wins!`;
