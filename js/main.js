@@ -117,8 +117,7 @@ const ScreenController = (() => {
   };
 
   const addBoardStyle = () => {
-    boardDiv.style.display = "grid";
-    boardDiv.style.gridTemplateColumns = `repeat(${mnk.cols}, 50px)`;
+    boardDiv.style.setProperty("--cols", mnk.cols);
   };
 
   const render = ({ board, activePlayer, isGameOver, isDraw }) => {

@@ -1,0 +1,24 @@
+.mnk {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 10rem);
+  align-items: center;
+  justify-content: center;
+  min-height: 100svh;
+}
+
+.mnk__board {
+  --_cols-size: 100px;
+
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--_cols-size));
+}
+
+.mnk__col {
+  min-width: var(--_cols-size);
+  min-height: var(--_cols-size);
+  font-size: 5rem;
+  cursor: pointer;
+  border: 1px solider #333;
+  border-radius: 0;
+}
