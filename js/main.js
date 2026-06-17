@@ -118,16 +118,10 @@ const ScreenController = (() => {
   const gameDiv = document.querySelector(".mnk__game");
 
   const playerTurnDiv = document.querySelector(".mnk__turn");
-  const boardDiv = document.querySelector(".mnk__board");
   const resetBtn = document.querySelector(".mnk__reset");
 
-  const clearBoard = () => {
-    boardDiv.textContent = "";
-  };
-
-  const addBoardStyle = () => {
-    boardDiv.style.setProperty("--cols", mnk.cols);
-  };
+  const boardDiv = document.querySelector(".mnk__board");
+  boardDiv.style.setProperty("--cols", mnk.cols);
 
   const toggleView = (viewName) => {
     menuDiv.style.display = "none";
@@ -141,9 +135,7 @@ const ScreenController = (() => {
   };
 
   const renderBoard = ({ board, activePlayer, isGameOver, isDraw }) => {
-    clearBoard();
-
-    addBoardStyle();
+    boardDiv.textContent = "";
 
     if (isGameOver && isDraw) {
       playerTurnDiv.textContent = "It's a draw!";
