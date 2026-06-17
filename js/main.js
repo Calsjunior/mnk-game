@@ -158,7 +158,7 @@ const ScreenController = (() => {
     });
   };
 
-  const attachBoardListener = (handler) => {
+  const attachGameListener = (handler) => {
     boardDiv.addEventListener("click", (event) => {
       const selectedRow = event.target.dataset.row;
       const selectedCol = event.target.dataset.col;
@@ -186,7 +186,7 @@ const ScreenController = (() => {
   return {
     renderBoard,
     toggleView,
-    attachBoardListener,
+    attachGameListener,
     attachResetListener,
     attachMenuListener,
   };
@@ -206,7 +206,7 @@ const App = ((board, controller, ui) => {
     }
   };
 
-  const startGame = (rowString, colString) => {
+  const handleStartGame = (rowString, colString) => {
     if (state.isGameOver) return;
 
     const row = parseInt(rowString, 10);
@@ -238,7 +238,7 @@ const App = ((board, controller, ui) => {
     ui.renderBoard(state);
   };
 
-  const resetGame = () => {
+  const handleResetGame = () => {
     state.board = board.createBoard(mnk.rows, mnk.cols);
     state.activePlayer = players[0];
     state.isGameOver = false;
@@ -249,8 +249,8 @@ const App = ((board, controller, ui) => {
 
   return {
     init() {
-      ui.attachBoardListener(startGame);
-      ui.attachResetListener(resetGame);
+      ui.attachGameListener(handleStartGame);
+      ui.attachResetListener(handleResetGame);
       ui.attachMenuListener(handleMenu);
       ui.renderBoard(state);
     },
