@@ -9,6 +9,12 @@ const players = [
   { name: "Player 2", token: "o" },
 ];
 
+const ViewModes = Object.freeze({
+  MENU: "menu",
+  GAME: "game",
+  SETTINGS: "settings",
+});
+
 const GameBoard = (() => {
   const createBoard = (rows, cols) => {
     return Array(rows)
@@ -108,6 +114,9 @@ const GameController = ((board) => {
 })(GameBoard);
 
 const ScreenController = (() => {
+  const menuDiv = document.querySelector(".mnk__menu");
+  const gameDiv = document.querySelector(".mnk__game");
+
   const playerTurnDiv = document.querySelector(".mnk__turn");
   const boardDiv = document.querySelector(".mnk__board");
   const resetBtn = document.querySelector(".mnk__reset");
@@ -120,7 +129,18 @@ const ScreenController = (() => {
     boardDiv.style.setProperty("--cols", mnk.cols);
   };
 
-  const render = ({ board, activePlayer, isGameOver, isDraw }) => {
+  const toggleView = (viewName) => {
+    menuDiv.style.display = "none";
+    gameDiv.style.display = "none";
+
+    switch (viewName) {
+      case ViewModes.GAME:
+        gameDiv.style.display = "flex";
+        break;
+    }
+  };
+
+  const renderBoard = ({ board, activePlayer, isGameOver, isDraw }) => {
     clearBoard();
 
     addBoardStyle();
@@ -161,7 +181,23 @@ const ScreenController = (() => {
     resetBtn.addEventListener("click", handler);
   };
 
-  return { render, attachBoardListener, attachResetListener };
+  const attachMenuListener = (handler) => {
+    menuDiv.addEventListener("click", (event) => {
+      const action = event.target.dataset.action;
+
+      if (!action) return;
+
+      handler(action);
+    });
+  };
+
+  return {
+    renderBoard,
+    toggleView,
+    attachBoardListener,
+    attachResetListener,
+    attachMenuListener,
+  };
 })();
 
 const App = ((board, controller, ui) => {
@@ -170,6 +206,12 @@ const App = ((board, controller, ui) => {
     activePlayer: players[0],
     isGameOver: false,
     isDraw: false,
+  };
+
+  const handleMenu = (viewTarget) => {
+    if (viewTarget === ViewModes.GAME) {
+      ui.toggleView(ViewModes.GAME);
+    }
   };
 
   const startGame = (rowString, colString) => {
@@ -201,7 +243,7 @@ const App = ((board, controller, ui) => {
       );
     }
 
-    ui.render(state);
+    ui.renderBoard(state);
   };
 
   const resetGame = () => {
@@ -210,14 +252,15 @@ const App = ((board, controller, ui) => {
     state.isGameOver = false;
     state.isDraw = false;
 
-    ui.render(state);
+    ui.renderBoard(state);
   };
 
   return {
     init() {
       ui.attachBoardListener(startGame);
       ui.attachResetListener(resetGame);
-      ui.render(state);
+      ui.attachMenuListener(handleMenu);
+      ui.renderBoard(state);
     },
   };
 })(GameBoard, GameController, ScreenController);
