@@ -119,7 +119,6 @@ const ScreenController = (() => {
   const addBoardStyle = () => {
     boardDiv.style.display = "grid";
     boardDiv.style.gridTemplateColumns = `repeat(${mnk.cols}, 50px)`;
-    boardDiv.style.gap = "5px";
   };
 
   const render = ({ board, activePlayer, isGameOver, isDraw }) => {
@@ -130,7 +129,7 @@ const ScreenController = (() => {
     if (isGameOver && isDraw) {
       playerTurnDiv.textContent = "It's a draw!";
     } else if (isGameOver) {
-      playerTurnDiv.textContent = `${activePlayer.name}'s win`;
+      playerTurnDiv.textContent = `${activePlayer.name} wins`;
     } else {
       playerTurnDiv.textContent = `${activePlayer.name}'s turn`;
     }
@@ -141,7 +140,7 @@ const ScreenController = (() => {
         cellBtn.classList.add("mnk__col");
         cellBtn.dataset.row = rowIndex;
         cellBtn.dataset.col = colIndex;
-        cellBtn.textContent = cell === 0 ? "-" : cell;
+        cellBtn.textContent = cell === 0 ? "" : cell;
 
         boardDiv.appendChild(cellBtn);
       });
