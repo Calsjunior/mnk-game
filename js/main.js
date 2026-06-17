@@ -110,6 +110,7 @@ const GameController = ((board) => {
 const ScreenController = (() => {
   const playerTurnDiv = document.querySelector(".mnk__turn");
   const boardDiv = document.querySelector(".mnk__board");
+  const resetBtn = document.querySelector(".mnk__reset");
 
   const clearBoard = () => {
     boardDiv.textContent = "";
@@ -158,7 +159,11 @@ const ScreenController = (() => {
     });
   };
 
-  return { render, attachBoardListener };
+  const attachResetListener = (handler) => {
+    resetBtn.addEventListener("click", handler);
+  };
+
+  return { render, attachBoardListener, attachResetListener };
 })();
 
 const App = ((board, controller, ui) => {
@@ -169,7 +174,7 @@ const App = ((board, controller, ui) => {
     isDraw: false,
   };
 
-  const clickHandleCell = (rowString, colString) => {
+  const startGame = (rowString, colString) => {
     if (state.isGameOver) return;
 
     const row = parseInt(rowString, 10);
@@ -201,9 +206,19 @@ const App = ((board, controller, ui) => {
     ui.render(state);
   };
 
+  const resetGame = () => {
+    state.board = board.createBoard(mnk.rows, mnk.cols);
+    state.activePlayer = players[0];
+    state.isGameOver = false;
+    state.isDraw = false;
+
+    ui.render(state);
+  };
+
   return {
     init() {
-      ui.attachBoardListener(clickHandleCell);
+      ui.attachBoardListener(startGame);
+      ui.attachResetListener(resetGame);
       ui.render(state);
     },
   };
