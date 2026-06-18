@@ -114,13 +114,13 @@ const GameController = ((board) => {
 })(GameBoard);
 
 const ScreenController = (() => {
-  const menuDiv = document.querySelector(".mnk__menu");
-  const gameDiv = document.querySelector(".mnk__game");
+  const menuDiv = document.querySelector("#menu");
+  const gameDiv = document.querySelector("#in-game");
 
-  const playerTurnDiv = document.querySelector(".mnk__turn");
-  const resetBtn = document.querySelector(".mnk__reset");
+  const playerTurnDiv = document.querySelector("#player-turn");
+  const resetBtn = document.querySelector("#reset-btn");
 
-  const boardDiv = document.querySelector(".mnk__board");
+  const boardDiv = document.querySelector("#board");
   boardDiv.style.setProperty("--cols", mnk.cols);
 
   const toggleView = (viewName) => {

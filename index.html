@@ -12,19 +12,21 @@
   </head>
 
   <body>
-    <div class="mnk__menu">
-      <button data-action="game" type="button" class="mnk__start">
+    <div id="menu" class="mnk__menu">
+      <button data-action="game" type="button" class="button__start">
         Start Game
       </button>
-      <button data-action="settings" type="button" class="mnk__settings">
+      <button data-action="settings" type="button" class="button__settings">
         Settings
       </button>
     </div>
 
-    <div class="mnk__game" style="display: none;">
-      <h2 class="mnk__turn"></h2>
-      <div class="mnk__board"></div>
-      <button type="button" class="mnk__reset">Reset Game</button>
+    <div id="in-game" class="mnk__game" style="display: none;">
+      <h2 id="player-turn" class="mnk__turn"></h2>
+      <div id="board" class="mnk__board"></div>
+      <button id="reset-btn" type="button" class="button__reset">
+        Reset Game
+      </button>
     </div>
   </body>
 </html>
