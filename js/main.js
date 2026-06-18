@@ -115,6 +115,7 @@ const GameController = ((board) => {
 
 const ScreenController = (() => {
   const menuDiv = document.querySelector("#menu");
+  const settingsDiv = document.querySelector("#in-settings");
   const gameDiv = document.querySelector("#in-game");
 
   const playerTurnDiv = document.querySelector("#player-turn");
@@ -130,6 +131,9 @@ const ScreenController = (() => {
     switch (viewName) {
       case ViewModes.GAME:
         gameDiv.style.display = "flex";
+        break;
+      case ViewModes.SETTINGS:
+        settingsDiv.style.display = "block";
         break;
     }
   };
@@ -203,6 +207,8 @@ const App = ((board, controller, ui) => {
   const handleMenu = (viewTarget) => {
     if (viewTarget === ViewModes.GAME) {
       ui.toggleView(ViewModes.GAME);
+    } else if (viewTarget === ViewModes.SETTINGS) {
+      ui.toggleView(ViewModes.SETTINGS);
     }
   };
 
