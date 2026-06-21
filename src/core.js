@@ -70,7 +70,7 @@ const checkDraw = (board) => {
   return board.every((row) => !row.includes(0));
 };
 
-const playRound = (currentBoard, row, col, winLength, token) => {
+const calculateNextState = (currentBoard, row, col, winLength, token) => {
   const newBoard = placeToken(currentBoard, row, col, token);
   const isDraw = checkDraw(newBoard);
   const isWinner = checkWinner(newBoard, row, col, winLength, token);
@@ -83,10 +83,10 @@ const playRound = (currentBoard, row, col, winLength, token) => {
 };
 
 export {
+  calculateNextState,
   checkDraw,
   checkWinner,
   createBoard,
   getNextPlayer,
   placeToken,
-  playRound,
 };
