@@ -81,3 +81,12 @@ const playRound = (currentBoard, row, col, winLength, token) => {
     isWinner,
   };
 };
+
+export {
+  checkDraw,
+  checkWinner,
+  createBoard,
+  getNextPlayer,
+  placeToken,
+  playRound,
+};
