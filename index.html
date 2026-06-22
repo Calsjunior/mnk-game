@@ -8,20 +8,38 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
 
-    <script src="js/main.js" defer></script>
+    <script src="js/main.js" type="module"></script>
   </head>
 
   <body>
-    <div id="menu" class="mnk__menu">
-      <button data-action="game" type="button" class="button__start">
+    <div id="screen-menu" class="mnk__menu">
+      <button
+        id="btn-start"
+        data-action="game"
+        type="button"
+        class="button__start"
+      >
         Start Game
       </button>
-      <button data-action="settings" type="button" class="button__settings">
+      <button
+        id="btn-settings"
+        data-action="settings"
+        type="button"
+        class="button__settings"
+      >
         Settings
       </button>
     </div>
 
-    <div class="mnk__settings" id="in-settings" style="display: none;">
+    <div id="screen-game" class="mnk__game" style="display: none;">
+      <h2 id="container-status" class="mnk__turn"></h2>
+      <div id="container-board" class="mnk__board"></div>
+      <button id="btn-reset" type="button" class="button__reset">
+        Reset Game
+      </button>
+    </div>
+
+    <div id="screen-settings" class="mnk__settings" style="display: none;">
       <h2>Game Rules:</h2>
 
       <div id="game-rules">
@@ -39,13 +57,6 @@
       </div>
 
       <h2>Players</h2>
-    </div>
-    <div id="in-game" class="mnk__game" style="display: none;">
-      <h2 id="player-turn" class="mnk__turn"></h2>
-      <div id="board" class="mnk__board"></div>
-      <button id="reset-btn" type="button" class="button__reset">
-        Reset Game
-      </button>
     </div>
   </body>
 </html>
