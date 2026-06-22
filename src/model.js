@@ -1,10 +1,5 @@
+import { GAME_STATE } from "./constants.js";
 import { calculateNextState, createBoard } from "./core.js";
-
-const GAME_STATE = Object.freeze({
-  PLAYING: "playing",
-  WIN: "win",
-  DRAW: "draw",
-});
 
 class GameModel {
   #rows;
