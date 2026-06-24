@@ -20,7 +20,11 @@ class GameModel {
     return { ...this.#status };
   }
 
-  setInitialState(rows, cols, winLength) {
+  setInitialState(
+    rows = this.#rows,
+    cols = this.#cols,
+    winLength = this.#winLength,
+  ) {
     this.#rows = rows;
     this.#cols = cols;
     this.#winLength = winLength;
