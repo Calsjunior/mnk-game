@@ -10,6 +10,8 @@ class GameView {
     this.containerBoard = document.querySelector("#container-board");
     this.btnReset = document.querySelector("#btn-reset");
 
+    this.btnReturn = document.querySelector("#btn-return");
+
     this.screenTable = {
       [SCREENS.MENU]: this.screenMenu,
       [SCREENS.GAME]: this.screenGame,
@@ -24,6 +26,12 @@ class GameView {
 
     if (this.screenTable[targetScreen]) {
       this.screenTable[targetScreen].style.display = "flex";
+    }
+
+    if (targetScreen === SCREENS.MENU) {
+      this.btnReturn.style.display = "none";
+    } else {
+      this.btnReturn.style.display = "block";
     }
   }
 
@@ -55,6 +63,13 @@ class GameView {
     });
   }
 
+  bindReturnEvents(handleMenuAction, handleReset) {
+    this.btnReturn.addEventListener("click", () => {
+      handleMenuAction(SCREENS.MENU);
+      handleReset();
+    });
+  }
+
   bindMenuEvents(handleMenuAction) {
     this.screenMenu.addEventListener("click", (event) => {
       const action = event.target.dataset.action;
@@ -63,8 +78,9 @@ class GameView {
       handleMenuAction(action);
     });
   }
-  bindGameEvents(handlerReset, handleCellClick) {
-    this.btnReset.addEventListener("click", handlerReset);
+
+  bindGameEvents(handleReset, handleCellClick) {
+    this.btnReset.addEventListener("click", handleReset);
 
     this.containerBoard.addEventListener("click", (event) => {
       if (event.target.tagName.toLowerCase() !== "button") return;

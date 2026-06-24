@@ -13,7 +13,8 @@ class GameController {
     this.activePlayer = this.players[0];
 
     this.view.bindMenuEvents(this.handleMenuAction);
-    this.view.bindGameEvents(this.handleResetGame, this.handleCellClick);
+    this.view.bindReturnEvents(this.handleMenuAction, this.handleReset);
+    this.view.bindGameEvents(this.handleReset, this.handleCellClick);
     this.view.showScreen(SCREENS.MENU);
   }
 
@@ -23,6 +24,8 @@ class GameController {
       this.#updateView();
     } else if (targetScreen === SCREENS.SETTINGS) {
       this.view.showScreen(SCREENS.SETTINGS);
+    } else {
+      this.view.showScreen(SCREENS.MENU);
     }
   };
 
@@ -42,7 +45,7 @@ class GameController {
     this.#updateView();
   };
 
-  handleResetGame = () => {
+  handleReset = () => {
     this.model.setInitialState();
     this.activePlayer = this.players[0];
     this.#updateView();
