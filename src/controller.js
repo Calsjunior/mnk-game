@@ -1,4 +1,5 @@
 import { GAME_STATE, SCREENS } from "./constants.js";
+import { getNextPlayer } from "./core.js";
 
 class GameController {
   constructor(model, view) {
@@ -9,15 +10,11 @@ class GameController {
       { name: "Player 1", token: "x" },
       { name: "Player 2", token: "o" },
     ];
-    this.activePlayerIndex = 0;
+    this.activePlayer = this.players[0];
 
     this.view.bindMenuEvents(this.handleMenuAction);
     this.view.bindGameEvents(this.handleResetGame, this.handleCellClick);
     this.view.showScreen(SCREENS.MENU);
-  }
-
-  get activePlayer() {
-    return this.players[this.activePlayerIndex];
   }
 
   handleMenuAction = (targetScreen) => {
@@ -39,7 +36,7 @@ class GameController {
     if (!successMove) return;
 
     if (this.model.status.state === GAME_STATE.PLAYING) {
-      this.activePlayerIndex = this.activePlayerIndex === 0 ? 1 : 0;
+      this.activePlayer = getNextPlayer(this.activePlayer, this.players);
     }
 
     this.#updateView();
@@ -47,7 +44,7 @@ class GameController {
 
   handleResetGame = () => {
     this.model.setInitialState();
-    this.activePlayerIndex = 0;
+    this.activePlayer = this.players[0];
     this.#updateView();
   };
 
