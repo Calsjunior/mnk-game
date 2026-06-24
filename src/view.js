@@ -67,9 +67,10 @@ class GameView {
     this.btnReset.addEventListener("click", handlerReset);
 
     this.containerBoard.addEventListener("click", (event) => {
+      if (event.target.tagName.toLowerCase() !== "button") return;
+
       const selectedRow = parseInt(event.target.dataset.row, 10);
       const selectedCol = parseInt(event.target.dataset.col, 10);
-      if (!selectedRow || !selectedCol) return;
 
       handleCellClick(selectedRow, selectedCol);
     });
