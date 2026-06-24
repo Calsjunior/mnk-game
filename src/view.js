@@ -27,7 +27,7 @@ class GameView {
     }
   }
 
-  renderStatus({ state, name }) {
+  renderStatus({ state }, { name }) {
     if (state === GAME_STATE.WIN) {
       this.containerStatus.textContent = `${name} wins!`;
     } else if (state === GAME_STATE.DRAW) {
