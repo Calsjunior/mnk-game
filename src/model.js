@@ -29,7 +29,7 @@ class GameModel {
   }
 
   executeMove(row, col, token) {
-    if (this.#status.state !== GAME_STATE.PLAYING) return;
+    if (this.#status.state !== GAME_STATE.PLAYING) return false;
 
     const result = calculateNextState(
       this.#board,
@@ -39,7 +39,7 @@ class GameModel {
       token,
     );
 
-    if (result.newBoard === this.#board) return;
+    if (result.newBoard === this.#board) return false;
     this.#board = result.newBoard;
 
     if (result.isWinner) {
@@ -47,6 +47,8 @@ class GameModel {
     } else if (result.isDraw) {
       this.#status = { state: GAME_STATE.DRAW, winner: null };
     }
+
+    return true;
   }
 }
 
