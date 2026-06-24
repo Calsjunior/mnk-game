@@ -1,4 +1,5 @@
 body {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,4 +37,10 @@ body {
   cursor: pointer;
   border: 1px solider #333;
   border-radius: 0;
+}
+
+.button__return {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
