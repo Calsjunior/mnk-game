@@ -9,7 +9,7 @@ class GameModel {
   #status;
 
   constructor(rows = 3, cols = 3, winLength = 3) {
-    this.setInitialState(rows, cols, winLength);
+    this.setInitialState({ rows, cols, winLength });
   }
 
   get board() {
@@ -20,11 +20,11 @@ class GameModel {
     return { ...this.#status };
   }
 
-  setInitialState(
+  setInitialState({
     rows = this.#rows,
     cols = this.#cols,
     winLength = this.#winLength,
-  ) {
+  } = {}) {
     this.#rows = rows;
     this.#cols = cols;
     this.#winLength = winLength;

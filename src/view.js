@@ -10,12 +10,24 @@ class GameView {
     this.containerBoard = document.querySelector("#container-board");
     this.btnReset = document.querySelector("#btn-reset");
 
+    this.inputRows = document.querySelector("#rows-settings");
+    this.inputCols = document.querySelector("#cols-settings");
+    this.inputWin = document.querySelector("#win-settings");
+
     this.btnReturn = document.querySelector("#btn-return");
 
     this.screenTable = {
       [SCREENS.MENU]: this.screenMenu,
       [SCREENS.GAME]: this.screenGame,
       [SCREENS.SETTINGS]: this.screenSettings,
+    };
+  }
+
+  get settings() {
+    return {
+      rows: parseInt(this.inputRows.value, 10),
+      cols: parseInt(this.inputCols.value, 10),
+      winLength: parseInt(this.inputWin.value, 10),
     };
   }
 

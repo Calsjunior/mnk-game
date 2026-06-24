@@ -26,6 +26,7 @@ class GameController {
       this.view.showScreen(SCREENS.SETTINGS);
     } else {
       this.view.showScreen(SCREENS.MENU);
+      this.model.setInitialState(this.view.settings);
     }
   };
 

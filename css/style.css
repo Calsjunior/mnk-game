@@ -39,6 +39,10 @@ body {
   border-radius: 0;
 }
 
+.mnk__settings {
+  flex-direction: column;
+}
+
 .button__return {
   position: absolute;
   top: 0;
