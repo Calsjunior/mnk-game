@@ -10,4 +10,14 @@ const SCREENS = Object.freeze({
   SETTINGS: "settings",
 });
 
-export { GAME_STATE, SCREENS };
+const getDefaultValues = () => ({
+  rows: 3,
+  cols: 3,
+  winLength: 3,
+  players: [
+    { name: "Player 1", token: "x" },
+    { name: "Player 2", token: "o" },
+  ],
+});
+
+export { GAME_STATE, getDefaultValues, SCREENS };
