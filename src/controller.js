@@ -1,16 +1,9 @@
-import { GAME_STATE, SCREENS } from "./constants.js";
-import { getNextPlayer } from "./core.js";
+import { SCREENS } from "./constants.js";
 
 class GameController {
   constructor(model, view) {
     this.model = model;
     this.view = view;
-
-    this.players = [
-      { name: "Player 1", token: "x" },
-      { name: "Player 2", token: "o" },
-    ];
-    this.activePlayer = this.players[0];
 
     this.view.bindMenuEvents(this.handleMenuAction);
     this.view.bindReturnEvents(this.handleMenuAction, this.handleReset);
@@ -31,29 +24,20 @@ class GameController {
   };
 
   handleCellClick = (row, col) => {
-    const successMove = this.model.executeMove(
-      row,
-      col,
-      this.activePlayer.token,
-    );
+    const successMove = this.model.executeMove(row, col);
 
     if (!successMove) return;
-
-    if (this.model.status.state === GAME_STATE.PLAYING) {
-      this.activePlayer = getNextPlayer(this.activePlayer, this.players);
-    }
 
     this.#updateView();
   };
 
   handleReset = () => {
     this.model.setInitialState();
-    this.activePlayer = this.players[0];
     this.#updateView();
   };
 
   #updateView() {
-    this.view.renderStatus(this.model.status, this.activePlayer);
+    this.view.renderStatus(this.model.status, this.model.activePlayer);
     this.view.renderBoard(this.model.board);
   }
 }

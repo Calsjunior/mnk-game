@@ -75,10 +75,9 @@ class GameView {
     });
   }
 
-  bindReturnEvents(handleMenuAction, handleReset) {
+  bindReturnEvents(handleMenuAction) {
     this.btnReturn.addEventListener("click", () => {
       handleMenuAction(SCREENS.MENU);
-      handleReset();
     });
   }
 

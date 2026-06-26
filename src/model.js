@@ -1,5 +1,5 @@
-import { GAME_STATE } from "./constants.js";
-import { calculateNextState, createBoard } from "./core.js";
+import { GAME_STATE, getDefaultValues } from "./constants.js";
+import { calculateNextState, createBoard, getNextPlayer } from "./core.js";
 
 class GameModel {
   #rows;
@@ -7,9 +7,11 @@ class GameModel {
   #winLength;
   #board;
   #status;
+  #players;
+  #activePlayer;
 
-  constructor(rows = 3, cols = 3, winLength = 3) {
-    this.setInitialState({ rows, cols, winLength });
+  constructor() {
+    this.setInitialState(getDefaultValues());
   }
 
   get board() {
@@ -20,19 +22,26 @@ class GameModel {
     return { ...this.#status };
   }
 
+  get activePlayer() {
+    return this.#activePlayer;
+  }
+
   setInitialState({
     rows = this.#rows,
     cols = this.#cols,
     winLength = this.#winLength,
+    players = this.#players,
   } = {}) {
     this.#rows = rows;
     this.#cols = cols;
     this.#winLength = winLength;
+    this.#players = players;
+    this.#activePlayer = this.#players[0];
     this.#board = createBoard(rows, cols);
     this.#status = { state: GAME_STATE.PLAYING, winner: null };
   }
 
-  executeMove(row, col, token) {
+  executeMove(row, col) {
     if (this.#status.state !== GAME_STATE.PLAYING) return false;
 
     const result = calculateNextState(
@@ -40,16 +49,18 @@ class GameModel {
       row,
       col,
       this.#winLength,
-      token,
+      this.#activePlayer.token,
     );
 
     if (result.newBoard === this.#board) return false;
     this.#board = result.newBoard;
 
     if (result.isWinner) {
-      this.#status = { state: GAME_STATE.WIN, winner: token };
+      this.#status = { state: GAME_STATE.WIN, winner: this.#activePlayer.name };
     } else if (result.isDraw) {
       this.#status = { state: GAME_STATE.DRAW, winner: null };
+    } else {
+      this.#activePlayer = getNextPlayer(this.#activePlayer, this.#players);
     }
 
     return true;
