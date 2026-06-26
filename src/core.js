@@ -16,7 +16,10 @@ const placeToken = (currentBoard, row, col, token) => {
 };
 
 const getNextPlayer = (currentPlayer, players) => {
-  return currentPlayer === players[0] ? players[1] : players[0];
+  const currentIndex = players.findIndex(
+    (player) => player.name === currentPlayer.name,
+  );
+  return players[(currentIndex + 1) % players.length];
 };
 
 const checkWinner = (board, targetRow, targetCol, winLength, token) => {
