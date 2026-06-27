@@ -1,3 +1,16 @@
+:root {
+  --crt-green: #00ff41;
+  --crt-green-dim: #007a1f;
+  --crt-green-glow: #00ff4133;
+  --crt-amber: #ffb300;
+  --crt-amber-dim: #7a5500;
+  --crt-bg: #060a06;
+  --crt-surface: #080e08;
+  --crt-border: #003a10;
+  --mono: "VT323", monospace;
+  --cell-size: 80px;
+}
+
 body {
   position: relative;
   display: flex;
@@ -5,12 +18,49 @@ body {
   align-items: center;
   justify-content: center;
   height: 100svh;
+  font-family: var(--mono);
+  color: white;
+  background-color: var(--crt-bg);
 }
 
 .mnk__menu {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.button {
+  padding: 1rem 2rem;
+  font-size: 2.5rem;
+  color: inherit;
+  text-transform: uppercase;
+  background-color: var(--crt-surface);
+  border: 1px solid var(--crt-border);
+}
+
+.button::before,
+.button::before {
+  color: transparent;
+  content: "[";
+}
+
+.button::after,
+.button::after {
+  color: transparent;
+  content: "]";
+}
+
+.button:hover::before,
+.button:hover::before,
+.button:hover::after,
+.button:hover::after {
+  color: inherit;
+}
+
+.button--return {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .mnk__game {
@@ -35,16 +85,10 @@ body {
   min-height: var(--_cols-size);
   font-size: 5rem;
   cursor: pointer;
-  border: 1px solider #333;
+  border: 1px solid #333;
   border-radius: 0;
 }
 
 .mnk__settings {
   flex-direction: column;
-}
-
-.button__return {
-  position: absolute;
-  top: 0;
-  left: 0;
 }

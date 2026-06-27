@@ -7,12 +7,16 @@
 
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+      rel="stylesheet"
+    >
 
     <script src="src/main.js" type="module"></script>
   </head>
 
   <body>
-    <button id="btn-return" type="button" class="button__return">
+    <button id="btn-return" type="button" class="button button--return">
       Return to menu
     </button>
 
@@ -21,7 +25,7 @@
         id="btn-start"
         data-action="game"
         type="button"
-        class="button__start"
+        class="button button--start"
       >
         Start Game
       </button>
@@ -29,7 +33,7 @@
         id="btn-settings"
         data-action="settings"
         type="button"
-        class="button__settings"
+        class="button button__settings"
       >
         Settings
       </button>
@@ -38,7 +42,7 @@
     <div id="screen-game" class="mnk__game">
       <h2 id="container-status" class="mnk__turn"></h2>
       <div id="container-board" class="mnk__board"></div>
-      <button id="btn-reset" type="button" class="button__reset">
+      <button id="btn-reset" type="button" class="button button--reset">
         Reset Game
       </button>
     </div>
