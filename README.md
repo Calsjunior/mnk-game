@@ -45,7 +45,7 @@ the amount of players, players' names, and their tokens!
 ## To-Do
 
 - Add form validation so a game is always winnable.
-- Add dynamic column size to fit better when values of m, n are large
+- ~~Add dynamic column size to fit better when values of m, n are large~~
 
 ## Developer's note
 
