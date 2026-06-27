@@ -47,25 +47,53 @@
       </button>
     </div>
 
-    <div id="screen-settings" class="mnk__settings">
-      <h2>Game Rules:</h2>
+    <div id="screen-settings" class="settings">
+      <h2 class="settings__title">Game Rules:</h2>
 
-      <div id="game-rules">
-        <label for="rows-settings">Rows:</label>
-        <input id="rows-settings" type="number" min="3" max="15" value="3">
+      <div id="game-rules" class="settings__rules">
+        <label class="settings__label" for="rows-settings">Rows:</label>
+        <input
+          class="settings__input"
+          id="rows-settings"
+          type="number"
+          min="3"
+          max="15"
+          value="3"
+        >
 
-        <label for="cols-settings">Cols:</label>
-        <input id="cols-settings" type="number" min="3" max="15" value="3">
+        <label class="settings__label" for="cols-settings">Cols:</label>
+        <input
+          class="settings__input"
+          id="cols-settings"
+          type="number"
+          min="3"
+          max="15"
+          value="3"
+        >
 
-        <label for="win-settings">Rows to win:</label>
-        <input id="win-settings" type="number" min="3" max="15" value="3">
+        <label class="settings__label" for="win-settings">Rows to win:</label>
+        <input
+          class="settings__input"
+          id="win-settings"
+          type="number"
+          min="3"
+          max="15"
+          value="3"
+        >
 
-        <label for="player-settings">Players:</label>
-        <input id="player-settings" type="number" min="2" max="10" value="2">
+        <label class="settings__label" for="player-settings">Players:</label>
+        <input
+          class="settings__input"
+          id="player-settings"
+          type="number"
+          min="2"
+          max="10"
+          value="2"
+        >
       </div>
 
-      <h2>Players</h2>
-      <div id="container-players"></div>
+      <h2 class="settings__title">Players</h2>
+      <div id="container-players" class="settings__players"></div>
     </div>
   </body>
 </html>

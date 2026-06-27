@@ -26,11 +26,11 @@ class GameView {
   }
 
   get settings() {
-    const playerRows = this.containerPlayers.querySelectorAll(".player-row");
+    const playerRows = this.containerPlayers.querySelectorAll(".player");
     const customPlayers = Array.from(playerRows).map((row) => {
       return {
-        name: row.querySelector(".player-name").value,
-        token: row.querySelector(".player-token").value,
+        name: row.querySelector(".player__input--name").value,
+        token: row.querySelector(".player__input--token").value,
       };
     });
 
@@ -95,13 +95,13 @@ class GameView {
         i === 1 ? "x" : i === 2 ? "o" : String.fromCharCode(64 + i);
 
       const playerDiv = document.createElement("div");
-      playerDiv.classList.add("player-row");
+      playerDiv.classList.add("player");
       playerDiv.innerHTML = `
-        <label>Name:</label>
-        <input class="player-name" type="text" value="Player ${i}">
+        <label class="settings__label player__label">Name:</label>
+        <input class="settings__input player__input player__input--name" type="text" value="Player ${i}">
 
-        <label>Token:</label>
-        <input class="player-token" type="text" value="${defaultToken}" maxlength="1" size="2">
+        <label class="settings__label player__label">Token:</label>
+        <input class="settings__input player__input player__input--token" type="text" value="${defaultToken}" maxlength="1" size="2">
       `;
 
       this.containerPlayers.appendChild(playerDiv);
