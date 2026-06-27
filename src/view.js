@@ -8,11 +8,13 @@ class GameView {
 
     this.containerStatus = document.querySelector("#container-status");
     this.containerBoard = document.querySelector("#container-board");
+    this.containerPlayers = document.querySelector("#container-players");
     this.btnReset = document.querySelector("#btn-reset");
 
     this.inputRows = document.querySelector("#rows-settings");
     this.inputCols = document.querySelector("#cols-settings");
     this.inputWin = document.querySelector("#win-settings");
+    this.inputPlayersCount = document.querySelector("#player-settings");
 
     this.btnReturn = document.querySelector("#btn-return");
 
@@ -24,10 +26,19 @@ class GameView {
   }
 
   get settings() {
+    const playerRows = this.containerPlayers.querySelectorAll(".player-row");
+    const customPlayers = Array.from(playerRows).map((row) => {
+      return {
+        name: row.querySelector(".player-name").value,
+        token: row.querySelector(".player-token").value,
+      };
+    });
+
     return {
       rows: parseInt(this.inputRows.value, 10),
       cols: parseInt(this.inputCols.value, 10),
       winLength: parseInt(this.inputWin.value, 10),
+      players: customPlayers,
     };
   }
 
@@ -72,6 +83,34 @@ class GameView {
 
         this.containerBoard.appendChild(cellBtn);
       });
+    });
+  }
+
+  renderPlayers() {
+    const count = parseInt(this.inputPlayersCount.value, 10);
+    this.containerPlayers.innerHTML = "";
+
+    for (let i = 1; i <= count; i++) {
+      const defaultToken =
+        i === 1 ? "x" : i === 2 ? "o" : String.fromCharCode(64 + i);
+
+      const playerDiv = document.createElement("div");
+      playerDiv.classList.add("player-row");
+      playerDiv.innerHTML = `
+        <label>Name:</label>
+        <input class="player-name" type="text" value="Player ${i}">
+
+        <label>Token:</label>
+        <input class="player-token" type="text" value="${defaultToken}" maxlength="1" size="2">
+      `;
+
+      this.containerPlayers.appendChild(playerDiv);
+    }
+  }
+
+  bindPlayersCountEvents() {
+    this.inputPlayersCount.addEventListener("input", () => {
+      this.renderPlayers();
     });
   }
 

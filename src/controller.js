@@ -8,7 +8,10 @@ class GameController {
     this.view.bindMenuEvents(this.handleMenuAction);
     this.view.bindReturnEvents(this.handleMenuAction, this.handleReset);
     this.view.bindGameEvents(this.handleReset, this.handleCellClick);
+    this.view.bindPlayersCountEvents();
+
     this.view.showScreen(SCREENS.MENU);
+    this.view.renderPlayers();
   }
 
   handleMenuAction = (targetScreen) => {
