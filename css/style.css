@@ -72,16 +72,16 @@ body {
 }
 
 .mnk__board {
-  --_cols-size: 100px;
-
   display: grid;
-  grid-template-columns: repeat(var(--cols), var(--_cols-size));
+  grid-template-columns: repeat(var(--cols), 1fr);
+  width: 80%;
+  max-width: 350px;
 }
 
 .mnk__col {
-  min-width: var(--_cols-size);
-  min-height: var(--_cols-size);
-  font-size: 5rem;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  font-size: calc(13rem / var(--cols));
   color: white;
   cursor: pointer;
   background-color: var(--crt-surface);
