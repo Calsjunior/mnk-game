@@ -1,14 +1,12 @@
 :root {
   --crt-green: #00ff41;
   --crt-green-dim: #007a1f;
-  --crt-green-glow: #00ff4133;
   --crt-amber: #ffb300;
   --crt-amber-dim: #7a5500;
   --crt-bg: #060a06;
   --crt-surface: #080e08;
   --crt-border: #003a10;
   --mono: "VT323", monospace;
-  --cell-size: 80px;
 }
 
 body {
