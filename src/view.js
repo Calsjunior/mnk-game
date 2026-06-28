@@ -69,7 +69,9 @@ class GameView {
   }
 
   renderBoard(board) {
+    const rows = board.length;
     const cols = board[0].length;
+    this.containerBoard.style.setProperty("--rows", rows);
     this.containerBoard.style.setProperty("--cols", cols);
     this.containerBoard.textContent = "";
 

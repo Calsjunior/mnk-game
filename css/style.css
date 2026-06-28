@@ -74,14 +74,15 @@ body {
 .mnk__board {
   display: grid;
   grid-template-columns: repeat(var(--cols), 1fr);
-  width: 80%;
-  max-width: 350px;
 }
 
 .mnk__col {
-  width: 100%;
+  --_board-size: min(80vw, 70vh, 500px);
+  --_max-cells: max(var(--rows), var(--cols));
+
+  width: calc(var(--_board-size) / var(--_max-cells));
   aspect-ratio: 1 / 1;
-  font-size: calc(13rem / var(--cols));
+  font-size: calc(20rem / var(--_max-cells));
   color: white;
   cursor: pointer;
   background-color: var(--crt-surface);
